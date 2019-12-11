@@ -1,0 +1,51 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger REST Article
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api"
+
+# Paths supported by the server application
+paths:
+  /pieces/:
+    get:
+      parameters:
+        - name: reversed
+          in: pieces
+          description: Orientation of board
+          required: true
+          type: string
+      tags:
+        - "Pieces"
+      summary: "The chess pieces data structure supported by the server application"
+      description: "Read the list of chess pieces"
+      responses:
+        200:
+          description: "Successful read chess pieces list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                id:
+                  type: "integer"
+                name:
+                  type: "string"
+                shorthand:
+                  type: "string"
+                worth:
+                  type: "integer"
+                currentPosition:
+                  type: "string"
+                availableMoves:
+                  type: "array"
+                  items:
+                    type: "string"
+                deleted:
+                  type: "boolean"
+                timeChanged:
+                  type: "string"
