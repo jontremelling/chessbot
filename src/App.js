@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Alerts from "./components/layout/Alerts";
 import Board from './components/Board';
+import Score from './components/layout/Score';
 import logo from './logo.svg';
 import './App.css';
 
@@ -13,6 +14,7 @@ function App() {
             <div className="container">
                 <Alerts />
                 <Board></Board>
+                <Score></Score>
             </div>
         </Fragment>
     </Provider>

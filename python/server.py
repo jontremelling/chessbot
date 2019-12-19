@@ -21,7 +21,7 @@ def home():
 
 @app.route('/api/initialise')
 def initialise():
-    return board.initialise(inverted)
+    return board.initialise()
 
 @app.route('/api/pieces')
 def getPieces():

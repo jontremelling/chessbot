@@ -5,32 +5,36 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 const Chess = require('react-chess')
 
-const Board = ({ chess: { token, pieces }, initialise, movePiece, getPieces, setAlert }) => {
+const Board = ({ chess: { token, pieces, availableMoves, isCheckmate, isStalemate, winner, board }, movePiece, getPieces, setAlert }) => {
 	useEffect(() => {
-        if (localStorage.token) {
-            getPieces();
+        if(!isCheckmate) {
+                getPieces();
         } else {
-            initialise(true);
+            setAlert("Checkmate!");
         }
-
         // eslint-disable-next-line
-    }, []);
+    }, [isCheckmate]);
 
 	function handleMovePiece(piece, fromSquare, toSquare) {
-        movePiece(piece, fromSquare, toSquare);
+        let move = fromSquare + toSquare;
+        if(availableMoves.includes(move)) {
+            movePiece(piece, fromSquare, toSquare);
+        } else {
+            window.location.reload(false);
+        }
 	}
 
 	return (
-		<div className="container" id="board">
-            { pieces && pieces.length >0 && <Chess pieces={pieces[0]} onMovePiece={handleMovePiece} /> }
-            { <span>{token}</span>}
-		</div>
+		<div>
+            <div className="container" id="board">
+                { pieces && pieces.length >0 && <Chess pieces={pieces} onMovePiece={handleMovePiece} /> }
+		    </div>
+        </div>
 	);
 };
 
 Board.propTypes = {
-    chess: PropTypes.object.isRequired,
-    initialise: PropTypes.func.isRequired
+    chess: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -39,5 +43,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { initialise, movePiece, getPieces, setAlert }
+    { movePiece, getPieces, setAlert }
 )(Board);

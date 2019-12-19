@@ -2,7 +2,7 @@ import uuid from "uuid";
 import { SET_ALERT, REMOVE_ALERT } from "./types";
 
 // Set Alert
-export const setAlert = (msg, type, timeout = 50000) => async dispatch => {
+export const setAlert = (msg, type, timeout = 3000) => async dispatch => {
     const id = uuid.v4();
     dispatch({
         type: SET_ALERT,
